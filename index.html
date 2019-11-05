@@ -1,0 +1,224 @@
+<!doctype html>
+
+<html>
+
+    <head>
+
+        <title>Tech-doc</title>
+
+        <link rel="stylesheet" type="text/css" href="tech-doc.css">
+
+    </head>
+
+    <body>
+
+
+        <nav id="navbar">
+
+            <header><img src="PHP-logo.png" value="Php" width="70px"> Documentation</header>
+
+            <ul>
+
+                <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+
+                <li><a class="nav-link" href="#Installation">Installation</a></li>
+
+                <li><a class="nav-link" href="#Configuration">Configuration</a></li>
+
+                <li><a class="nav-link" href="#Language_reference">Language reference</a></li>
+
+                <li><a class="nav-link" href="#Security">Security</a></li>
+
+                <li><a class="nav-link" href="#Features">Features</a></li>
+
+                <li><a class="nav-link" href="#Function_reference">Function reference</a></li>
+
+                <li><a class="nav-link" href="#PHP_at_the_core">PHP at the core</a></li>
+
+                <li><a class="nav-link" href="#FAQ">FAQ</a></li>
+
+                <li id="appen"><a  class="nav-link" href="#Appendices">Appendices</a></li>
+                
+            </ul>
+        </nav>
+
+        <main id="main-doc">
+
+            <section id="Introduction" class="main-section">
+
+                <header>Introduction</header>
+
+                <p>HP (recursive acronym for PHP: Hypertext Preprocessor) is a widely-used open source general-purpose scripting language that is especially suited for web development and can be embedded into HTML.</p>
+
+                <p>Instead of lots of commands to output HTML (as seen in C or Perl), PHP pages contain HTML with embedded code that does "something" (in this case, output "Hi, I'm a PHP script!"). The PHP code is enclosed in special start and end processing instructions <code>?php and ?</code> that allow you to jump into and out of "PHP mode."
+
+                What distinguishes PHP from something like client-side JavaScript is that the code is executed on the server, generating HTML which is then sent to the client. The client would receive the results of running that script, but would not know what the underlying code was. You can even configure your web server to process all your HTML files with PHP, and then there's really no way that users can tell what you have up your sleeve.
+    
+                The best things in using PHP are that it is extremely simple for a newcomer, but offers many advanced features for a professional programmer. Don't be afraid reading the long list of PHP's features. You can jump in, in a short time, and start writing simple scripts in a few hours.
+    
+                Although PHP's development is focused on server-side scripting, you can do much more with it. Read on, and see more in the What can PHP do? section, or go right to the introductory tutorial if you are only interested in web programming.</p>
+
+                
+
+            </section>
+
+            <section id="Installation" class="main-section">
+
+                <header>Installation</header>
+    
+                <p>For the first and most common form, you need three things: PHP itself, a web server and a web browser. You probably already have a web browser, and depending on your operating system setup, you may also have a web server (e.g. Apache on Linux and macOS; IIS on Windows). You may also rent webspace at a company. This way, you don't need to set up anything on your own, only write your PHP scripts, upload it to the server you rent, and see the results in your browser.</p>
+    
+                    
+                <p>In case of setting up the server and PHP on your own, you have two choices for the method of connecting PHP to the server. For many servers PHP has a direct module interface (also called SAPI). These servers include Apache, Microsoft Internet Information Server, Netscape and iPlanet servers. Many other servers have support for ISAPI, the Microsoft module interface (OmniHTTPd for example). If PHP has no module support for your web server, you can always use it as a CGI or FastCGI processor. This means you set up your server to use the CGI executable of PHP to process all PHP file requests on the server.
+                            
+                If you are also interested in using PHP for command line scripting (e.g. write scripts autogenerating some images for you offline, or processing text files depending on some arguments you pass to them), you always need the command line executable. For more information, read the section about writing command line PHP applications. In this case, you need no server and no browser.
+                            
+                With PHP you can also write desktop GUI applications using the PHP-GTK extension. This is a completely different approach than writing web pages, as you do not output any HTML, but manage windows and objects within them. For more information about PHP-GTK, please » visit the site dedicated to this extension. PHP-GTK is not included in the official PHP distribution.
+                            
+                From now on, this section deals with setting up PHP for web servers on Unix and Windows with server module interfaces and CGI executables. You will also find information on the command line executable in the following sections.</p>
+    
+                    
+                    
+            </section>
+
+            <section id="Configuration" class="main-section">
+
+                <header>Configuration</header>
+
+                <p>he configuration file <code>(php.ini)</code> is read when PHP starts up. For the server module versions of PHP, this happens only once when the web server is started. For the CGI and CLI versions, it happens on every invocation.
+
+                <code>php.ini</code> is searched for in these locations (in order):
+
+                    <ul>
+
+                        <li>SAPI module specific location (PHPIniDir directive in Apache 2, -c command line option in CGI and CLI, php_ini parameter in NSAPI, PHP_INI_PATH environment variable in THTTPD)</li>
+            
+                        <li>The <code>PHPRC</code> environment variable. Before PHP 5.2.0, this was checked after the registry key mentioned below.</li>
+            
+                        <li>As of PHP 5.2.0, the location of the php.ini file can be set for different versions of PHP. The root of the registry keys depends on 32- or 64-bitness of the installed OS and PHP. For 32-bit PHP on a 32-bit OS or a 64-bit PHP on a 64-bit OS use <i>[(HKEY_LOCAL_MACHINE\SOFTWARE\PHP]</i> for 32-bit version of PHP on a 64-bit OS use <i>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PHP]]</i> instead. For same bitness installation the following registry keys are examined in order: <i>[HKEY_LOCAL_MACHINE\SOFTWARE\PHP\x.y.z]</i>, <i>[HKEY_LOCAL_MACHINE\SOFTWARE\PHP\x.y]</i> and <i>[HKEY_LOCAL_MACHINE\SOFTWARE\PHP\x]</i>, where x, y and z mean the PHP major, minor and release versions. For 32 bit versions of PHP on a 64 bit OS the following registry keys are examined in order: <i>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6421Node\PHP\x.y.z]</i>, <i>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6421Node\PHP\x.y]</i> and <i>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6421Node\PHP\x]</i>, where x, y and z mean the PHP major, minor and release versions. If there is a value for IniFilePath in any of these keys, the first one found will be used as the location of the <code>php.ini</code> (Windows only).</li>
+
+                        <li><i>[HKEY_LOCAL_MACHINE\SOFTWARE\PHP]</i> or <i>[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PHP]</i>, value of IniFilePath (Windows only).</li>
+
+                        <li>Current working directory (except CLI).</li>
+            
+                    </ul>
+
+                </p>
+
+                
+
+                <p>The <code>php.ini</code> directives handled by extensions are documented on the respective pages of the extensions themselves. A list of the core directives is available in the appendix. Not all PHP directives are necessarily documented in this manual: for a complete list of directives available in your PHP version, please read your well commented <code>php.ini</code> file.</p>
+                
+            </section>
+
+            
+
+            <section id="Language_reference" class="main-section">
+
+                <header>Language reference</header>
+
+                <p>Everything outside of a pair of opening and closing tags is ignored by the PHP parser which allows PHP files to have mixed content. This allows PHP to be embedded in HTML documents, for example to create templates.
+
+                    
+                This works as expected, because when the PHP interpreter hits the ?> closing tags, it simply starts outputting whatever it finds (except for an immediately following newline - see instruction separation) until it hits another opening tag unless in the middle of a conditional statement in which case the interpreter will determine the outcome of the conditional before making a decision of what to skip over.</p>
+
+                <p>In this example PHP will skip the blocks where the condition is not met, even though they are outside of the PHP open/close tags; PHP skips them according to the condition since the PHP interpreter will jump over blocks contained within a condition that is not met.
+                For outputting large blocks of text, dropping out of PHP parsing mode is generally more efficient than sending all of the text through echo or print.
+                        
+                In PHP 5, there are up to five different pairs of opening and closing tags available in PHP, depending on how PHP is configured.
+                        
+                The other two are short tags and ASP style tags. As such, while some people find short tags and ASP style tags convenient, they are less portable, and generally not recommended.</p>
+                
+            </section>
+
+            <section id="Security" class="main-section">
+
+                <header>Security</header>
+
+                <p>PHP is a powerful language and the interpreter, whether included in a web server as a module or executed as a separate CGI binary, is able to access files, execute commands and open network connections on the server. These properties make anything run on a web server insecure by default. PHP is designed specifically to be a more secure language for writing CGI programs than Perl or C, and with correct selection of compile-time and runtime configuration options, and proper coding practices, it can give you exactly the combination of freedom and security you need.
+
+                As there are many different ways of utilizing PHP, there are many configuration options controlling its behaviour. A large selection of options guarantees you can use PHP for a lot of purposes, but it also means there are combinations of these options and server configurations that result in an insecure setup.</p>
+
+                <p>The configuration flexibility of PHP is equally rivalled by the code flexibility. PHP can be used to build complete server applications, with all the power of a shell user, or it can be used for simple server-side includes with little risk in a tightly controlled environment. How you build that environment, and how secure it is, is largely up to the PHP developer.
+                        
+                This chapter starts with some general security advice, explains the different configuration option combinations and the situations they can be safely used, and describes different considerations in coding for different levels of security.</p>
+                
+            </section>
+
+            <section id="Features" class="main-section">
+
+                <header>Features</header>
+
+                <p>PHP transparently supports HTTP cookies. Cookies are a mechanism for storing data in the remote browser and thus tracking or identifying return users. You can set cookies using the setcookie() or setrawcookie() function. Cookies are part of the HTTP header, so setcookie() must be called before any output is sent to the browser. This is the same limitation that header() has. You can use the output buffering functions to delay the script output until you have decided whether or not to set any cookies or send any headers.</p>
+
+                <p>Any cookies sent to server from the client will automatically be included into a $_COOKIE auto-global array if variables_order contains "C". If you wish to assign multiple values to a single cookie, just add [] to the cookie name.
+                        
+                On older PHP systems (5.3 or earlier), register_globals may be enabled, which may cause undesirable and insecure operation. If this is enabled, cookies will be registered as global variables.</p>
+                
+            </section>
+
+            <section id="Function_reference" class="main-section">
+
+                <header>Function reference</header>
+
+                <p>APD is the Advanced PHP Debugger. It was written to provide profiling and debugging capabilities for PHP code, as well as to provide the ability to print out a full stack backtrace. APD supports interactive debugging, but by default it writes data to trace files. It also offers event based logging so that varying levels of information (including function calls, arguments passed, timings, etc.) can be turned on or off for individual scripts.</p>
+
+                <p>APCu is APC stripped of opcode caching.The first APCu codebase was versioned 4.0.0, it was forked from the head of the APC master branch at the time. PHP 7 support is available as of APCu 5.0.0. APCu can provide a compatibility mode, such that it can provide a drop in replacement for the applicable parts of APC.</p>
+                
+            </section>
+
+            <section id="PHP_at_the_core" class="main-section">
+
+                <header>PHP at the core</header>
+    
+                <p>This section of the manual is written for the Hacker: someone thinking about getting their hands dirty, someone who wants an understanding of internals in order to advance their PHP skills, or maybe someone looking to write the next best extension. Whatever the reason, this section will seek to provide a good understanding of the internals of PHP, how to write extensions, how to understand existing code containing mystical macros. All of the important internal functionality is documented here, enough anyway to convince you to read the source.</p>
+    
+                <p>Out of necessity, this section assumes the reader has a working knowledge of the C programming language, and associated tools, like compilers and terminal emulators and the like. You don't need to be the next Alan Turing, but a working knowledge is none the less essential for this section to be of any use. With just that working knowledge, this section should be enough to get you well on the way to earning the title Hacker, and you do have to earn it. The documentation in this section is current as of PHP 5.3.3, deviations in API functionality are duly noted in the appropriate sections.</p>
+                    
+            </section>
+
+            <section id="FAQ" class="main-section">
+
+                <header>FAQ</header>
+    
+                <h4>What is PHP?
+                    From the preface of the manual:</h4>
+                            
+                <p>PHP is an HTML-embedded scripting language. Much of its syntax is borrowed from C, Java and Perl with a couple of unique PHP-specific features thrown in. The goal of the language is to allow web developers to write dynamically generated pages quickly.</p>
+                            
+                <h4>What does PHP stand for?</h4>
+
+                <P>PHP stands for PHP: Hypertext Preprocessor. This confuses many people because the first word of the acronym is the acronym. This type of acronym is called a recursive acronym. For more information, the curious can visit » Free On-Line Dictionary of Computing or the » Wikipedia entry on recursive acronyms.</p>
+    
+                <h4>What is the relation between the versions?</h4>
+
+                <p>PHP/FI 2.0 is an early and no longer supported version of PHP. PHP 3 is the successor to PHP/FI 2.0 and is a lot nicer. PHP 7 is the current generation of PHP, which uses the Zend engine 3 which, among other things, offers many additional OOP features.</p>
+                            
+                <h4>Can I run several versions of PHP at the same time?</h4>
+
+                <p>Yes. See the INSTALL file that is included in the PHP source distribution.</p>
+                            
+                <h4>I think I found a bug! Who should I tell?</h4>
+
+                <p>You should go to the PHP Bug Database and make sure the bug isn't a known bug. If you don't see it in the database, use the reporting form to report the bug. It is important to use the bug database instead of just sending an email to one of the mailing lists because the bug will have a tracking number assigned and it will then be possible for you to go back later and check on the status of the bug.</p>
+                    
+            </section>
+
+            <section id="Appendices" class="main-section">
+
+                <header>Appendices</header>
+    
+                <p>PHP as it's known today is actually the successor to a product named PHP/FI. Created in 1994 by Rasmus Lerdorf, the very first incarnation of PHP was a simple set of Common Gateway Interface (CGI) binaries written in the C programming language. Originally used for tracking visits to his online resume, he named the suite of scripts "Personal Home Page Tools," more frequently referenced as "PHP Tools." Over time, more functionality was desired, and Rasmus rewrote PHP Tools, producing a much larger and richer implementation. This new model was capable of database interaction and more, providing a framework upon which users could develop simple dynamic web applications such as guestbooks. In June of 1995, Rasmus » released the source code for PHP Tools to the public, which allowed developers to use it as they saw fit. This also permitted - and encouraged - users to provide fixes for bugs in the code, and to generally improve upon it.</p>
+
+                <p>In September of that year, Rasmus expanded upon PHP and - for a short time - actually dropped the PHP name. Now referring to the tools as FI (short for "Forms Interpreter"), the new implementation included some of the basic functionality of PHP as we know it today. It had Perl-like variables, automatic interpretation of form variables, and HTML embedded syntax. The syntax itself was similar to that of Perl, albeit much more limited, simple, and somewhat inconsistent. In fact, to embed the code into an HTML file, developers had to use HTML comments. Though this method was not entirely well-received, FI continued to enjoy growth and acceptance as a CGI tool --- but still not quite as a language. However, this began to change the following month; in October, 1995, Rasmus released a complete rewrite of the code. Bringing back the PHP name, it was now (briefly) named "Personal Home Page Construction Kit," and was the first release to boast what was, at the time, considered an advanced scripting interface. The language was deliberately designed to resemble C in structure, making it an easy adoption for developers familiar with C, Perl, and similar languages. Having been thus far limited to UNIX and POSIX-compliant systems, the potential for a Windows NT implementation was being explored.</p>
+                            
+                <p>The code got another complete makeover, and in April of 1996, combining the names of past releases, Rasmus introduced PHP/FI. This second-generation implementation began to truly evolve PHP from a suite of tools into a programming language in its own right. It included built-in support for DBM, mSQL, and Postgres95 databases, cookies, user-defined function support, and much more. That June, PHP/FI was given a version 2.0 status. An interesting fact about this, however, is that there was only one single full version of PHP 2.0. When it finally graduated from beta status in November, 1997, the underlying parsing engine was already being entirely rewritten.</p>
+                        
+                    
+            </section>
+
+        </main>
+
+    </body>
+
+</html>
